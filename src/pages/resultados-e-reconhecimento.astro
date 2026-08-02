@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PreFooterCTA from "../components/PreFooterCTA.astro";
+import { getReconhecimentos, NOME_ESCRITORIO } from "../lib/content";
+
+const reconhecimentos = await getReconhecimentos();
+
+const numeros = [
+  { valor: "15+", rotulo: "anos de atuação" },
+  { valor: "6", rotulo: "áreas de atuação" },
+  { valor: "40+", rotulo: "empresas atendidas em compliance" },
+  { valor: "4", rotulo: "advogados dedicados" },
+];
+---
+
+<BaseLayout
+  title="Resultados & Reconhecimento"
+  description={`Indicadores de atuação e reconhecimentos de terceiros do ${NOME_ESCRITORIO}.`}
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Resultados & Reconhecimento</p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        Experiência que se mostra em números, não em promessas.
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">
+        O Código de Ética da OAB veda a divulgação de casos concretos ou resultados como forma de
+        publicidade — e essa é uma regra com a qual concordamos: cada situação jurídica é diferente,
+        e nenhum escritório sério promete um desfecho antes de conhecer o seu caso. Por isso, esta
+        página reúne indicadores agregados e reconhecimentos de terceiros, não histórias de clientes.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+        {numeros.map((n) => (
+          <div>
+            <span class="block font-display text-4xl font-600 text-navy">{n.valor}</span>
+            <span class="mt-1 block font-body text-sm text-ink-soft">{n.rotulo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Reconhecimento de terceiros</p>
+      <ul class="mt-8 divide-y divide-line border-y border-line">
+        {reconhecimentos.map((r) => (
+          <li class="flex flex-wrap items-baseline justify-between gap-2 py-4">
+            <span class="font-body text-ink">{r.titulo}</span>
+            <span class="font-mono text-xs text-ink-faint">{r.organizacao} · {r.ano}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <PreFooterCTA />
+</BaseLayout>

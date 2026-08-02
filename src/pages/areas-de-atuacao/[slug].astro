@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getAreas } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const areas = await getAreas();
+  return areas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props;
+---
+
+<BaseLayout title={area.nome} description={area.resumo}>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">
+        &nbsp;<a href="/areas-de-atuacao" class="hover:underline">Áreas de Atuação</a>
+      </p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        {area.nome}
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">{area.resumo}</p>
+      <a
+        href="/contato"
+        class="mt-8 inline-block rounded-sm bg-rubrica px-7 py-3.5 font-body font-500 text-paper transition-colors hover:bg-rubrica-deep"
+      >
+        Agende uma consulta sobre {area.nome.toLowerCase()}
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Por que agora</p>
+      <p class="mt-4 font-body text-lg leading-relaxed text-ink-soft">{area.contextualizacao}</p>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Escopo de atuação</p>
+      <ul class="mt-6 space-y-3">
+        {area.escopo.map((item: string) => (
+          <li class="flex gap-3 font-body text-ink-soft">
+            <span class="mt-1 font-mono text-xs text-rubrica" aria-hidden="true">§</span>
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      {area.diferenciais.length > 0 && (
+        <>
+          <p class="mark-section mt-12 font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Diferenciais técnicos</p>
+          <ul class="mt-6 space-y-3">
+            {area.diferenciais.map((item: string) => (
+              <li class="flex gap-3 font-body text-ink-soft">
+                <span class="mt-1 font-mono text-xs text-rubrica" aria-hidden="true">§</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  </section>
+
+  {area.faq.length > 0 && (
+    <section class="bg-paper-warm">
+      <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Perguntas frequentes</p>
+        <h2 class="mt-4 font-display text-2xl font-600 text-ink">Dúvidas comuns sobre {area.nome.toLowerCase()}</h2>
+        <div class="mt-8">
+          <FaqAccordion itens={area.faq} />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <PreFooterCTA
+    title={`Vamos conversar sobre ${area.nome.toLowerCase()}?`}
+    ctaHref="/contato"
+  />
+</BaseLayout>

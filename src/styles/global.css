@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Tipografia self-hosted (ver briefing, Seção 12 — Performance) */
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/700.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/fraunces/600-italic.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/*
+  Sistema de design — "Clean Legal"
+  Ver briefing (Seção 10, Identidade Visual): sistema de cor 60-30-10 e
+  motivo de assinatura em § (rubrica), herdado da tradição de rubricação
+  em códices jurídicos (Vade Mecum). Ver README.md para o racional completo.
+*/
+@theme {
+  /* 60% — neutro / papel */
+  --color-paper: #f1f0ea;
+  --color-paper-warm: #e9e7dd;
+
+  /* Texto e superfícies escuras */
+  --color-ink: #14181f;
+  --color-ink-soft: #3d4149;
+  --color-ink-faint: #6b6f76;
+
+  /* 30% — institucional */
+  --color-navy: #1b3358;
+  --color-navy-deep: #12233d;
+  --color-navy-soft: #e7ecf2;
+
+  /* 10% — destaque / rubrica */
+  --color-rubrica: #8c2f39;
+  --color-rubrica-deep: #6e232b;
+  --color-rubrica-soft: #f3e4e2;
+
+  --color-line: #d7d4c8;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --container-prose: 68ch;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Foco visível consistente (WCAG 2.1 AA — briefing Seção 13) */
+:focus-visible {
+  outline: 2px solid var(--color-rubrica);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-rubrica);
+  color: var(--color-paper);
+}
+
+/* Marca de parágrafo/seção usada como motivo estrutural no lugar de
+   marcadores numéricos genéricos (01, 02, 03) — ver README.md */
+.mark-section::before {
+  content: "§";
+  font-family: var(--font-mono);
+  color: var(--color-rubrica);
+}

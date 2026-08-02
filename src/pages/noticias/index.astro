@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getConteudo, NOME_ESCRITORIO } from "../../lib/content";
+
+const noticias = await getConteudo("noticia");
+---
+
+<BaseLayout
+  title="Notícias"
+  description={`Atualizações legislativas recentes e o ${NOME_ESCRITORIO} na mídia.`}
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Notícias</p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        O que mudou — e o que isso significa na prática.
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">
+        Atualizações curtas sobre legislação e decisões relevantes, além da participação do
+        escritório na mídia. Para conteúdo aprofundado, veja o
+        <a href="/blog" class="text-navy underline decoration-line underline-offset-2 hover:text-rubrica">Blog Jurídico</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-4 sm:px-8">
+      {noticias.map((item) => (
+        <ArticleCard item={item} basePath="/noticias" />
+      ))}
+    </div>
+  </section>
+
+  <PreFooterCTA />
+</BaseLayout>

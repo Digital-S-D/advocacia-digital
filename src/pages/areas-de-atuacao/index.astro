@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getAreas, NOME_ESCRITORIO } from "../../lib/content";
+
+const areas = await getAreas();
+---
+
+<BaseLayout
+  title="Áreas de Atuação"
+  description={`Conheça as áreas de atuação do ${NOME_ESCRITORIO}: trabalhista, tributário, cível, societário, família e proteção de dados.`}
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Áreas de Atuação</p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        Seis frentes, um mesmo padrão de atendimento.
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">
+        Assessoria preventiva e contenciosa para empresas e pessoas físicas, sempre com um
+        responsável direto acompanhando o caso.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+      <div class="grid gap-8 sm:grid-cols-2">
+        {areas.map((area) => (
+          <a
+            href={`/areas-de-atuacao/${area.slug}`}
+            class="group block rounded-sm border border-line p-7 transition-colors hover:border-rubrica"
+          >
+            <h2 class="font-display text-xl font-600 text-ink group-hover:text-rubrica">{area.nome}</h2>
+            <p class="mt-3 font-body text-sm leading-relaxed text-ink-soft">{area.resumo}</p>
+            <span class="mt-4 inline-block font-body text-sm text-navy group-hover:text-rubrica">
+              Saiba mais →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PreFooterCTA />
+</BaseLayout>

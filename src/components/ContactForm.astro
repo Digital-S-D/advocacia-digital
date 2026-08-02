@@ -1,0 +1,157 @@
+---
+import { getAreas } from "../lib/content";
+
+const areas = await getAreas();
+---
+
+<form id="form-contato" novalidate class="space-y-5" action="/api/contato" method="POST">
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="nome" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">Nome completo</label>
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        required
+        minlength="2"
+        autocomplete="name"
+        class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
+      />
+    </div>
+    <div>
+      <label for="telefone" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">Telefone / WhatsApp</label>
+      <input
+        id="telefone"
+        name="telefone"
+        type="tel"
+        required
+        autocomplete="tel"
+        class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="email" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">E-mail</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
+    />
+  </div>
+
+  <div>
+    <label for="area" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">Área de interesse</label>
+    <select
+      id="area"
+      name="area"
+      required
+      class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink focus:border-navy"
+    >
+      <option value="">Selecione...</option>
+      {areas.map((area) => (
+        <option value={area.slug}>{area.nome}</option>
+      ))}
+      <option value="outro">Outro assunto</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="mensagem" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">
+      Descreva brevemente a sua situação
+    </label>
+    <textarea
+      id="mensagem"
+      name="mensagem"
+      required
+      minlength="10"
+      rows="4"
+      class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
+    ></textarea>
+  </div>
+
+  <!-- honeypot: invisível para pessoas, se vier preenchido é bot -->
+  <div class="hidden" aria-hidden="true">
+    <label for="website">Não preencha este campo</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <label class="flex items-start gap-3 font-body text-sm text-ink-soft">
+    <input
+      id="consentimento"
+      name="consentimento"
+      type="checkbox"
+      required
+      class="mt-1 h-4 w-4 shrink-0 rounded-sm border-line accent-navy"
+    />
+    <span>
+      Autorizo o tratamento dos dados acima para retorno do escritório, conforme a
+      <a href="/politica-de-privacidade" class="text-navy underline decoration-line underline-offset-2 hover:text-rubrica">
+        Política de Privacidade
+      </a>. Suas informações são tratadas com sigilo profissional.
+    </span>
+  </label>
+
+  <p id="form-erro" role="alert" class="hidden font-body text-sm text-rubrica"></p>
+
+  <button
+    type="submit"
+    class="w-full rounded-sm bg-rubrica px-7 py-3.5 font-body font-500 text-paper transition-colors hover:bg-rubrica-deep sm:w-auto"
+  >
+    Enviar solicitação
+  </button>
+</form>
+
+<script>
+  const form = document.getElementById("form-contato") as HTMLFormElement | null;
+  const erroEl = document.getElementById("form-erro");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (erroEl) {
+      erroEl.classList.add("hidden");
+      erroEl.textContent = "";
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando...";
+    }
+
+    try {
+      const response = await fetch("/api/contato", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const data = await response.json();
+
+      if (response.ok && data.ok) {
+        window.location.href = "/obrigado";
+        return;
+      }
+
+      const primeiraMensagem = data.errors
+        ? (Object.values(data.errors)[0] as string[] | undefined)?.[0]
+        : null;
+      if (erroEl) {
+        erroEl.textContent =
+          primeiraMensagem ?? "Não foi possível enviar. Verifique os campos e tente novamente.";
+        erroEl.classList.remove("hidden");
+      }
+    } catch {
+      if (erroEl) {
+        erroEl.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+        erroEl.classList.remove("hidden");
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Enviar solicitação";
+      }
+    }
+  });
+</script>

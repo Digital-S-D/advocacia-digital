@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { NOME_ESCRITORIO } from "../lib/content";
+---
+
+<BaseLayout
+  title="Contato"
+  description={`Agende uma consulta com o ${NOME_ESCRITORIO}. Atendimento presencial ou por videochamada.`}
+>
+  <section class="bg-paper">
+    <div class="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+      <div>
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Contato</p>
+        <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink">
+          Vamos entender a sua situação.
+        </h1>
+        <p class="mt-6 font-body leading-relaxed text-ink-soft">
+          Preencha o formulário ao lado com um breve resumo do seu caso. Retornamos em até 1 dia
+          útil para agendar a consulta inicial — presencial ou por videochamada.
+        </p>
+
+        <dl class="mt-10 space-y-6 border-t border-line pt-8 font-body text-sm">
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-wide text-ink-faint">WhatsApp</dt>
+            <dd class="mt-1 text-ink">
+              <a href="https://wa.me/5531999999999" class="hover:text-rubrica">(31) 99999-9999</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-wide text-ink-faint">E-mail</dt>
+            <dd class="mt-1 text-ink">
+              <a href="mailto:contato@advocaciadigital.com.br" class="hover:text-rubrica">
+                contato@advocaciadigital.com.br
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs uppercase tracking-wide text-ink-faint">Endereço</dt>
+            <dd class="mt-1 text-ink">Av. Exemplo, 1000 — Sala 501, Belo Horizonte/MG</dd>
+          </div>
+        </dl>
+
+        <p class="mt-10 font-body text-xs leading-relaxed text-ink-faint">
+          As informações enviadas por este formulário são tratadas com sigilo profissional e
+          conforme a nossa <a href="/politica-de-privacidade" class="underline hover:text-rubrica">Política de Privacidade</a>.
+        </p>
+      </div>
+
+      <div class="rounded-sm border border-line bg-paper-warm p-6 sm:p-10">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

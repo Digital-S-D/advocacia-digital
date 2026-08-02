@@ -1,0 +1,58 @@
+---
+import { NOME_ESCRITORIO, OAB_RESPONSAVEL, getAreas } from "../lib/content";
+
+const areas = await getAreas();
+const ano = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-paper/90">
+  <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+    <div class="grid grid-cols-2 gap-10 sm:grid-cols-4">
+      <div class="col-span-2 sm:col-span-1">
+        <p class="font-display text-lg text-paper">
+          <span class="text-rubrica" aria-hidden="true">§</span> {NOME_ESCRITORIO}
+        </p>
+        <p class="mt-3 max-w-[26ch] font-body text-sm text-paper/60">
+          Assessoria jurídica com clareza, sigilo e comunicação direta.
+        </p>
+        <p class="mt-4 font-mono text-xs text-paper/50">{OAB_RESPONSAVEL}</p>
+      </div>
+
+      <div>
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-paper/50">&nbsp;Escritório</p>
+        <ul class="mt-3 space-y-2 font-body text-sm text-paper/75">
+          <li><a href="/sobre" class="hover:text-rubrica">Sobre o Escritório</a></li>
+          <li><a href="/equipe" class="hover:text-rubrica">Equipe</a></li>
+          <li><a href="/resultados-e-reconhecimento" class="hover:text-rubrica">Reconhecimento</a></li>
+          <li><a href="/contato" class="hover:text-rubrica">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-paper/50">&nbsp;Áreas de Atuação</p>
+        <ul class="mt-3 space-y-2 font-body text-sm text-paper/75">
+          {areas.slice(0, 5).map((area) => (
+            <li><a href={`/areas-de-atuacao/${area.slug}`} class="hover:text-rubrica">{area.nome}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-paper/50">&nbsp;Conteúdo</p>
+        <ul class="mt-3 space-y-2 font-body text-sm text-paper/75">
+          <li><a href="/blog" class="hover:text-rubrica">Blog Jurídico</a></li>
+          <li><a href="/noticias" class="hover:text-rubrica">Notícias</a></li>
+          <li><a href="/faq" class="hover:text-rubrica">Perguntas Frequentes</a></li>
+          <li><a href="/politica-de-privacidade" class="hover:text-rubrica">Política de Privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-paper/15 pt-6 font-body text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {ano} {NOME_ESCRITORIO}. Todos os direitos reservados.</p>
+      <p class="max-w-[60ch]">
+        Publicidade informativa, em conformidade com o Provimento 205/2021 do Conselho Federal da OAB. Este site não garante resultados.
+      </p>
+    </div>
+  </div>
+</footer>

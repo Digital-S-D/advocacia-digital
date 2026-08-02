@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Página não encontrada" description="Página não encontrada." noindex>
+  <section class="bg-paper">
+    <div class="mx-auto max-w-xl px-5 py-28 text-center sm:px-8">
+      <p class="font-mono text-sm text-rubrica">§ 404</p>
+      <h1 class="mt-4 font-display text-3xl font-600 text-ink sm:text-4xl">
+        Esta página não foi encontrada.
+      </h1>
+      <p class="mt-4 font-body leading-relaxed text-ink-soft">
+        O link pode ter mudado de endereço ou a página não existe mais. Veja alguns pontos de
+        partida abaixo.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 font-body text-sm">
+        <a href="/" class="text-navy underline decoration-line underline-offset-4 hover:text-rubrica">Home</a>
+        <a href="/areas-de-atuacao" class="text-navy underline decoration-line underline-offset-4 hover:text-rubrica">Áreas de Atuação</a>
+        <a href="/blog" class="text-navy underline decoration-line underline-offset-4 hover:text-rubrica">Blog Jurídico</a>
+        <a href="/contato" class="text-navy underline decoration-line underline-offset-4 hover:text-rubrica">Contato</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import PreFooterCTA from "../components/PreFooterCTA.astro";
+import { NOME_ESCRITORIO } from "../lib/content";
+
+const perguntas = [
+  {
+    pergunta: "Como funciona a primeira consulta?",
+    resposta:
+      "Você apresenta sua situação — presencialmente ou por videochamada — e recebemos os documentos que já existirem. Ao final, você sai com uma leitura honesta dos caminhos possíveis e dos próximos passos.",
+  },
+  {
+    pergunta: "Como são cobrados os honorários?",
+    resposta:
+      "Depende da natureza do caso: pode ser um valor fixo, honorários por hora ou, em ações de cobrança, um percentual sobre o valor recuperado (êxito). A forma de cobrança é sempre explicada antes de qualquer contratação, nunca depois.",
+  },
+  {
+    pergunta: "Quanto tempo demora um processo?",
+    resposta:
+      "Varia muito conforme a área, a complexidade e o volume de processos no tribunal responsável. Na consulta inicial damos uma expectativa de prazo baseada em casos com características semelhantes — sem prometer uma data fechada.",
+  },
+  {
+    pergunta: "As informações que eu compartilhar ficam em sigilo?",
+    resposta:
+      "Sim. O sigilo profissional é uma obrigação ética do advogado (Art. 34, VII do Código de Ética da OAB), e vale tanto para o que é dito em consulta quanto para os dados enviados pelo site.",
+  },
+  {
+    pergunta: "É possível atendimento 100% remoto?",
+    resposta:
+      "Sim, atendemos por videochamada em todas as etapas em que isso for possível processualmente. Encontros presenciais ficam disponíveis quando fizer sentido para o caso.",
+  },
+];
+---
+
+<BaseLayout
+  title="Perguntas Frequentes"
+  description={`Dúvidas comuns sobre honorários, prazos, sigilo e como funciona o atendimento do ${NOME_ESCRITORIO}.`}
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Perguntas Frequentes</p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        Antes de agendar, você provavelmente quer saber isto.
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">
+        Dúvidas específicas de cada área ficam nas respectivas páginas de
+        <a href="/areas-de-atuacao" class="text-navy underline decoration-line underline-offset-2 hover:text-rubrica">Áreas de Atuação</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <FaqAccordion itens={perguntas} />
+    </div>
+  </section>
+
+  <PreFooterCTA />
+</BaseLayout>

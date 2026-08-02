@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getConteudo, NOME_ESCRITORIO } from "../../lib/content";
+
+const artigos = await getConteudo("blog");
+---
+
+<BaseLayout
+  title="Blog Jurídico"
+  description={`Artigos do ${NOME_ESCRITORIO} explicando direitos, processos e mudanças na lei de forma didática.`}
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Blog Jurídico</p>
+      <h1 class="mt-4 font-display text-4xl font-600 leading-tight text-ink sm:text-5xl">
+        Direito explicado sem juridiquês.
+      </h1>
+      <p class="mt-6 font-body text-lg leading-relaxed text-ink-soft">
+        Conteúdo evergreen sobre direitos, processos e conceitos jurídicos — para quem quer entender
+        antes de decidir. Para atualizações rápidas de legislação e jurisprudência, veja a
+        <a href="/noticias" class="text-navy underline decoration-line underline-offset-2 hover:text-rubrica">página de Notícias</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-4 sm:px-8">
+      {artigos.map((artigo) => (
+        <ArticleCard item={artigo} basePath="/blog" />
+      ))}
+    </div>
+  </section>
+
+  <PreFooterCTA />
+</BaseLayout>

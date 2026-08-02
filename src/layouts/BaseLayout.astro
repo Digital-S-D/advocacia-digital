@@ -1,0 +1,58 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import { NOME_ESCRITORIO } from "../lib/content";
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const pageTitle = title === NOME_ESCRITORIO ? title : `${title} · ${NOME_ESCRITORIO}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": NOME_ESCRITORIO,
+      "url": Astro.site?.toString(),
+      "areaServed": "BR",
+      "priceRange": "$$",
+    })} />
+  </head>
+  <body class="font-body text-ink antialiased">
+    <a
+      href="#conteudo-principal"
+      class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+    >
+      Pular para o conteúdo
+    </a>
+    <Header />
+    <main id="conteudo-principal">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

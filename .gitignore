@@ -1,0 +1,21 @@
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment variables (qualquer variação — .env, .env.local, .env.production, .env.production.local...)
+.env*
+!.env.example
+
+# metadados locais de deploy da Vercel (link do projeto, não é segredo, mas não deve ir pro repo)
+.vercel/
+
+# macOS-specific files
+.DS_Store

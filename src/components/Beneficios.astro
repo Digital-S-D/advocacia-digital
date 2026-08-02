@@ -1,0 +1,38 @@
+---
+const beneficios = [
+  {
+    titulo: "Um advogado, do início ao fim",
+    texto: "Quem atende a consulta inicial é quem acompanha o caso — não um time de triagem trocando a cada etapa.",
+  },
+  {
+    titulo: "Prazos e honorários explicados antes",
+    texto: "Você sabe, desde a primeira conversa, o que esperar de prazos e como funciona a cobrança pelo serviço.",
+  },
+  {
+    titulo: "Sigilo em cada etapa",
+    texto: "As informações que você compartilha são tratadas com sigilo profissional e segurança, do formulário ao arquivo do processo.",
+  },
+  {
+    titulo: "No seu tempo, do seu jeito",
+    texto: "Consultas presenciais ou por videochamada — o que fizer mais sentido para a sua rotina.",
+  },
+];
+---
+
+<section class="border-t border-line bg-paper-warm">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+    <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Por que Advocacia Digital</p>
+    <h2 class="mt-4 max-w-xl font-display text-2xl font-600 leading-snug text-ink sm:text-3xl">
+      O que muda quando você conta com o escritório certo.
+    </h2>
+
+    <div class="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2">
+      {beneficios.map((b) => (
+        <div class="border-t border-line pt-5">
+          <h3 class="font-display text-lg font-600 text-ink">{b.titulo}</h3>
+          <p class="mt-2 font-body text-sm leading-relaxed text-ink-soft">{b.texto}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

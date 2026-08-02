@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { NOME_ESCRITORIO } from "../lib/content";
+---
+
+<BaseLayout
+  title="Política de Privacidade"
+  description={`Como o ${NOME_ESCRITORIO} trata os dados pessoais coletados neste site, em conformidade com a LGPD.`}
+>
+  <section class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;Política de Privacidade</p>
+      <h1 class="mt-4 font-display text-3xl font-600 leading-tight text-ink sm:text-4xl">
+        Política de Privacidade
+      </h1>
+
+      <div class="mt-6 rounded-sm border border-rubrica/30 bg-rubrica-soft px-5 py-4 font-body text-sm text-ink-soft">
+        <strong class="text-rubrica">Nota para quem for publicar este site:</strong> o texto abaixo é
+        um modelo estrutural com as seções que a LGPD normalmente exige, com dados de exemplo entre
+        colchetes. Ele precisa ser revisado e assinado pelo advogado ou DPO responsável pelo
+        escritório antes de entrar no ar — não é uma peça jurídica pronta para uso.
+      </div>
+
+      <div class="prose-legal mt-10 space-y-8 font-body leading-relaxed text-ink-soft">
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">1. Controlador dos dados</h2>
+          <p class="mt-2">
+            [{NOME_ESCRITORIO}], inscrito no CNPJ [00.000.000/0001-00], com sede em [endereço completo],
+            é o controlador dos dados pessoais tratados por meio deste site.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">2. Quais dados coletamos</h2>
+          <p class="mt-2">
+            Coletamos os dados fornecidos voluntariamente no formulário de contato (nome, e-mail,
+            telefone, área de interesse e mensagem) e dados de navegação coletados por cookies e
+            ferramentas de analytics (ver seção 6).
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">3. Finalidade e base legal do tratamento</h2>
+          <p class="mt-2">
+            Os dados do formulário são tratados para viabilizar o retorno do escritório sobre a
+            consulta solicitada, com base no seu consentimento (Art. 7º, I, LGPD) e, quando aplicável,
+            no legítimo interesse do escritório em responder a contatos recebidos (Art. 7º, IX, LGPD).
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">4. Sigilo profissional</h2>
+          <p class="mt-2">
+            Além das obrigações da LGPD, advogados estão sujeitos ao sigilo profissional previsto no
+            Art. 34, VII do Código de Ética e Disciplina da OAB. Informações compartilhadas sobre uma
+            situação jurídica específica recebem esse nível adicional de proteção.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">5. Compartilhamento de dados</h2>
+          <p class="mt-2">
+            Não vendemos dados pessoais a terceiros. Dados podem ser compartilhados com ferramentas de
+            operação do escritório (ex.: provedor de e-mail, CRM, sistema de gestão jurídica) e quando
+            exigido por obrigação legal ou ordem judicial.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">6. Cookies e ferramentas de terceiros</h2>
+          <p class="mt-2">
+            Este site pode usar cookies de analytics (ex.: Google Analytics) e de mapeamento de
+            comportamento (ex.: heatmaps) para entender como o site é utilizado. [Descrever aqui o
+            banner de consentimento de cookies granular efetivamente implementado.]
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">7. Retenção e descarte</h2>
+          <p class="mt-2">
+            Os dados são mantidos pelo tempo necessário para a finalidade que motivou a coleta e pelos
+            prazos de guarda aplicáveis à atividade advocatícia, sendo descartados de forma segura
+            após esse período.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">8. Seus direitos como titular</h2>
+          <p class="mt-2">
+            Você pode solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade
+            ou eliminação dos seus dados, conforme o Art. 18 da LGPD, pelo canal indicado na seção 9.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xl font-600 text-ink">9. Contato do encarregado (DPO)</h2>
+          <p class="mt-2">
+            Dúvidas sobre esta política ou solicitações relacionadas aos seus dados podem ser
+            enviadas para [e-mail do encarregado/DPO].
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-12 font-mono text-xs text-ink-faint">Última atualização: [data de publicação]</p>
+    </div>
+  </section>
+</BaseLayout>

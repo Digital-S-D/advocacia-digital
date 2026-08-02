@@ -1,0 +1,87 @@
+---
+import { NOME_ESCRITORIO } from "../lib/content";
+
+const navItems = [
+  { href: "/areas-de-atuacao", label: "Áreas de Atuação" },
+  { href: "/equipe", label: "Equipe" },
+  { href: "/resultados-e-reconhecimento", label: "Reconhecimento" },
+  { href: "/blog", label: "Blog" },
+  { href: "/noticias", label: "Notícias" },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+    <a href="/" class="flex items-baseline gap-2 font-display text-xl font-600 tracking-tight text-ink">
+      <span aria-hidden="true" class="text-rubrica">§</span>
+      {NOME_ESCRITORIO}
+    </a>
+
+    <nav aria-label="Navegação principal" class="hidden lg:block">
+      <ul class="flex items-center gap-7 font-body text-[0.95rem] text-ink-soft">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class="transition-colors hover:text-rubrica">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="hidden items-center gap-4 lg:flex">
+      <a href="/contato" class="whitespace-nowrap rounded-sm bg-navy px-5 py-2.5 font-body text-sm font-500 text-paper transition-colors hover:bg-navy-deep">
+        Agende uma Consulta
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="flex items-center gap-2 rounded-sm border border-line px-3 py-2 font-mono text-xs text-ink-soft lg:hidden"
+      aria-expanded="false"
+      aria-controls="menu-mobile"
+    >
+      <span id="menu-toggle-label">Menu</span>
+      <svg id="icon-open" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <svg id="icon-close" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="hidden">
+        <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="menu-mobile" aria-label="Navegação mobile" class="hidden border-t border-line bg-paper lg:hidden">
+    <ul class="flex flex-col gap-1 px-5 py-4 font-body text-ink-soft">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="block rounded-sm px-2 py-2.5 transition-colors hover:bg-paper-warm hover:text-rubrica">
+            {item.label}
+          </a>
+        </li>
+      ))}
+      <li class="mt-2">
+        <a href="/contato" class="block rounded-sm bg-navy px-2 py-2.5 text-center font-500 text-paper">
+          Agende uma Consulta
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu-mobile");
+  const label = document.getElementById("menu-toggle-label");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    if (label) label.textContent = isOpen ? "Fechar" : "Menu";
+    iconOpen?.classList.toggle("hidden", isOpen);
+    iconClose?.classList.toggle("hidden", !isOpen);
+  });
+</script>

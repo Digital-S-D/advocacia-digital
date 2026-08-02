@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getConteudo } from "../lib/content";
+
+const artigosRecentes = (await getConteudo("blog")).slice(0, 3);
+---
+
+<BaseLayout
+  title="Solicitação recebida"
+  description="Sua solicitação de consulta foi recebida."
+  noindex
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-2xl px-5 py-24 text-center sm:px-8">
+      <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-navy-soft font-display text-2xl text-navy" aria-hidden="true">
+        §
+      </span>
+      <h1 class="mt-6 font-display text-3xl font-600 text-ink sm:text-4xl">
+        Recebemos sua solicitação.
+      </h1>
+      <p class="mt-4 font-body text-lg leading-relaxed text-ink-soft">
+        Um advogado da área relacionada ao seu caso vai analisar as informações enviadas e retornar
+        em até <strong class="text-ink">1 dia útil</strong> para agendar a consulta inicial.
+      </p>
+      <p class="mt-3 font-body text-sm text-ink-faint">
+        Se preferir adiantar o contato, fale conosco pelo WhatsApp indicado na página de Contato.
+      </p>
+      <a
+        href="/"
+        class="mt-8 inline-block font-body text-sm text-navy underline decoration-line underline-offset-4 hover:text-rubrica"
+      >
+        Voltar para a Home
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-paper-warm">
+    <div class="mx-auto max-w-4xl px-5 py-16 sm:px-8">
+      <p class="mark-section text-center font-mono text-xs uppercase tracking-wide text-ink-faint">
+        &nbsp;Enquanto isso
+      </p>
+      <h2 class="mt-3 text-center font-display text-xl font-600 text-ink">
+        Alguns artigos que podem ajudar
+      </h2>
+      <div class="mt-10 grid gap-8 sm:grid-cols-3">
+        {artigosRecentes.map((artigo) => (
+          <a href={`/blog/${artigo.slug}`} class="group block border-t border-line pt-4">
+            <h3 class="font-display text-base font-600 text-ink group-hover:text-rubrica">{artigo.titulo}</h3>
+            <p class="mt-2 font-body text-sm text-ink-soft">{artigo.resumo}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

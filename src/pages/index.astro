@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ProvaSocial from "../components/ProvaSocial.astro";
+import ProblemaSolucao from "../components/ProblemaSolucao.astro";
+import Beneficios from "../components/Beneficios.astro";
+import ProvaCompetencia from "../components/ProvaCompetencia.astro";
+import Processo from "../components/Processo.astro";
+import PreFooterCTA from "../components/PreFooterCTA.astro";
+import { NOME_ESCRITORIO } from "../lib/content";
+---
+
+<BaseLayout
+  title={NOME_ESCRITORIO}
+  description="Escritório de advocacia com assessoria jurídica preventiva e contenciosa em direito trabalhista, tributário, cível, societário, família e proteção de dados."
+>
+  <Hero
+    eyebrow="Advocacia Digital"
+    title="Assessoria jurídica com clareza sobre cada próximo passo."
+    subtitle="Atendemos empresas e pessoas físicas em direito do trabalho, tributário, cível, societário, família e proteção de dados — com comunicação direta e sem letras miúdas."
+    ctaLabel="Agende uma Consulta"
+    ctaHref="/contato"
+    secondaryLabel="Conheça as áreas de atuação"
+    secondaryHref="/areas-de-atuacao"
+  />
+  <ProvaSocial />
+  <ProblemaSolucao />
+  <Beneficios />
+  <ProvaCompetencia />
+  <Processo />
+  <PreFooterCTA />
+</BaseLayout>

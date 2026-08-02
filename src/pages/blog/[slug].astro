@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getConteudo, getAdvogado, getArea, formatarData } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const artigos = await getConteudo("blog");
+  return artigos.map((artigo) => ({
+    params: { slug: artigo.slug },
+    props: { artigo },
+  }));
+}
+
+const { artigo } = Astro.props;
+const autor = await getAdvogado(artigo.autorSlug);
+const area = artigo.areaRelacionada ? await getArea(artigo.areaRelacionada) : undefined;
+---
+
+<BaseLayout title={artigo.titulo} description={artigo.resumo}>
+  <article class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">
+        &nbsp;<a href="/blog" class="hover:underline">Blog Jurídico</a>
+        {area && <> · <a href={`/areas-de-atuacao/${area.slug}`} class="hover:underline">{area.nome}</a></>}
+      </p>
+      <h1 class="mt-4 font-display text-3xl font-600 leading-tight text-ink sm:text-4xl">
+        {artigo.titulo}
+      </h1>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3 border-b border-line pb-6 font-mono text-xs text-ink-faint">
+        <time datetime={artigo.publicadoEm}>{formatarData(artigo.publicadoEm)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{artigo.tempoLeituraMin} min de leitura</span>
+        {autor && (
+          <>
+            <span aria-hidden="true">·</span>
+            <a href={`/equipe#${autor.slug}`} class="hover:text-rubrica">Por {autor.nome}</a>
+          </>
+        )}
+      </div>
+
+      <div class="prose-legal mt-8 max-w-prose space-y-5 font-body text-lg leading-relaxed text-ink-soft">
+        {artigo.corpo.map((paragrafo) => (
+          <p>{paragrafo}</p>
+        ))}
+      </div>
+
+      <p class="mt-10 border-t border-line pt-6 font-body text-sm text-ink-faint">
+        Este artigo tem caráter informativo e não substitui uma consulta jurídica sobre o seu caso
+        específico.
+      </p>
+    </div>
+  </article>
+
+  <PreFooterCTA
+    title="Tem uma dúvida parecida com esta?"
+    subtitle="Conte sua situação numa consulta inicial e saia com um panorama claro dos próximos passos."
+  />
+</BaseLayout>

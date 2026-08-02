@@ -1,0 +1,64 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const { eyebrow, title, subtitle, ctaLabel, ctaHref, secondaryLabel, secondaryHref } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-line bg-paper">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1fr_auto] lg:items-center">
+    <div class="max-w-2xl">
+      {eyebrow && (
+        <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">&nbsp;{eyebrow}</p>
+      )}
+      <h1 class="mt-4 font-display text-4xl font-600 leading-[1.08] text-ink sm:text-5xl lg:text-[3.4rem]">
+        {title}
+      </h1>
+      <p class="mt-6 max-w-[52ch] font-body text-lg leading-relaxed text-ink-soft">
+        {subtitle}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <a
+          href={ctaHref}
+          class="rounded-sm bg-rubrica px-7 py-3.5 font-body font-500 text-paper transition-colors hover:bg-rubrica-deep"
+        >
+          {ctaLabel}
+        </a>
+        {secondaryLabel && secondaryHref && (
+          <a
+            href={secondaryHref}
+            class="font-body text-ink-soft underline decoration-line underline-offset-4 hover:text-navy"
+          >
+            {secondaryLabel}
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="lg:w-72 lg:shrink-0 lg:border-l lg:border-line lg:pl-8">
+      <slot name="painel">
+        <dl class="space-y-5 font-mono text-xs text-ink-faint">
+          <div>
+            <dt class="text-rubrica">Sigilo</dt>
+            <dd class="mt-1 text-ink-soft">Garantido — Art. 34, VII, Código de Ética da OAB</dd>
+          </div>
+          <div>
+            <dt class="text-rubrica">Primeiro contato</dt>
+            <dd class="mt-1 text-ink-soft">Retorno em até 1 dia útil</dd>
+          </div>
+          <div>
+            <dt class="text-rubrica">Atendimento</dt>
+            <dd class="mt-1 text-ink-soft">Presencial ou por videochamada</dd>
+          </div>
+        </dl>
+      </slot>
+    </div>
+  </div>
+</section>

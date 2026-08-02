@@ -1,0 +1,28 @@
+---
+import type { ConteudoEditorial } from "../lib/types";
+import { formatarData } from "../lib/content";
+
+interface Props {
+  item: ConteudoEditorial;
+  basePath: "/blog" | "/noticias";
+}
+
+const { item, basePath } = Astro.props;
+---
+
+<a href={`${basePath}/${item.slug}`} class="group block border-t border-line py-7 first:border-t-0">
+  <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-ink-faint">
+    <time datetime={item.publicadoEm}>{formatarData(item.publicadoEm)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{item.tempoLeituraMin} min de leitura</span>
+  </div>
+  <h3 class="mt-3 font-display text-xl font-600 text-ink group-hover:text-rubrica sm:text-2xl">
+    {item.titulo}
+  </h3>
+  <p class="mt-2 max-w-2xl font-body text-sm leading-relaxed text-ink-soft">
+    {item.resumo}
+  </p>
+  <span class="mt-4 inline-block font-body text-sm text-navy group-hover:text-rubrica">
+    Ler artigo →
+  </span>
+</a>

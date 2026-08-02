@@ -1,0 +1,38 @@
+---
+const passos = [
+  {
+    n: "01",
+    titulo: "Consulta inicial",
+    texto: "Você apresenta a situação e recebe uma leitura honesta sobre os caminhos possíveis — sem custo de diagnóstico.",
+  },
+  {
+    n: "02",
+    titulo: "Análise e estratégia",
+    texto: "Definimos, junto com você, a abordagem mais adequada ao seu caso e os prazos e custos envolvidos.",
+  },
+  {
+    n: "03",
+    titulo: "Acompanhamento contínuo",
+    texto: "Você acompanha cada etapa relevante do caso, com um canal direto para tirar dúvidas ao longo do processo.",
+  },
+];
+---
+
+<section class="border-t border-line bg-paper-warm">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+    <p class="mark-section font-mono text-xs uppercase tracking-wide text-ink-faint">&nbsp;Como funciona</p>
+    <h2 class="mt-4 max-w-xl font-display text-2xl font-600 leading-snug text-ink sm:text-3xl">
+      Três etapas, sem surpresas no meio do caminho.
+    </h2>
+
+    <ol class="mt-12 grid gap-10 sm:grid-cols-3">
+      {passos.map((p) => (
+        <li>
+          <span class="font-mono text-sm text-rubrica">§ {p.n}</span>
+          <h3 class="mt-3 font-display text-lg font-600 text-ink">{p.titulo}</h3>
+          <p class="mt-2 font-body text-sm leading-relaxed text-ink-soft">{p.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

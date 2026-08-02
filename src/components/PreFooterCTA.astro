@@ -1,0 +1,32 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  title = "Vamos entender a sua situação?",
+  subtitle = "A consulta inicial serve para você sair com clareza sobre os próximos passos — sem compromisso.",
+  ctaLabel = "Agende uma Consulta",
+  ctaHref = "/contato",
+} = Astro.props;
+---
+
+<section class="bg-ink">
+  <div class="mx-auto max-w-6xl px-5 py-20 text-center sm:px-8">
+    <h2 class="mx-auto max-w-xl font-display text-3xl font-600 leading-snug text-paper sm:text-4xl">
+      {title}
+    </h2>
+    <p class="mx-auto mt-4 max-w-md font-body text-paper/65">
+      {subtitle}
+    </p>
+    <a
+      href={ctaHref}
+      class="mt-8 inline-block rounded-sm bg-rubrica px-8 py-3.5 font-body font-500 text-paper transition-colors hover:bg-rubrica-deep"
+    >
+      {ctaLabel}
+    </a>
+  </div>
+</section>

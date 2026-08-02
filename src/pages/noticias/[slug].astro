@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PreFooterCTA from "../../components/PreFooterCTA.astro";
+import { getConteudo, getAdvogado, getArea, formatarData } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const noticias = await getConteudo("noticia");
+  return noticias.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const autor = await getAdvogado(item.autorSlug);
+const area = item.areaRelacionada ? await getArea(item.areaRelacionada) : undefined;
+---
+
+<BaseLayout title={item.titulo} description={item.resumo}>
+  <article class="bg-paper">
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:px-8">
+      <p class="mark-section font-mono text-xs uppercase tracking-wide text-rubrica">
+        &nbsp;<a href="/noticias" class="hover:underline">Notícias</a>
+        {area && <> · <a href={`/areas-de-atuacao/${area.slug}`} class="hover:underline">{area.nome}</a></>}
+      </p>
+      <h1 class="mt-4 font-display text-3xl font-600 leading-tight text-ink sm:text-4xl">
+        {item.titulo}
+      </h1>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3 border-b border-line pb-6 font-mono text-xs text-ink-faint">
+        <time datetime={item.publicadoEm}>{formatarData(item.publicadoEm)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{item.tempoLeituraMin} min de leitura</span>
+        {autor && (
+          <>
+            <span aria-hidden="true">·</span>
+            <a href={`/equipe#${autor.slug}`} class="hover:text-rubrica">Por {autor.nome}</a>
+          </>
+        )}
+      </div>
+
+      <div class="mt-8 max-w-prose space-y-5 font-body text-lg leading-relaxed text-ink-soft">
+        {item.corpo.map((paragrafo) => (
+          <p>{paragrafo}</p>
+        ))}
+      </div>
+
+      <p class="mt-10 border-t border-line pt-6 font-body text-sm text-ink-faint">
+        Esta nota tem caráter informativo e não substitui uma análise jurídica do seu caso específico.
+      </p>
+    </div>
+  </article>
+
+  <PreFooterCTA
+    title="Quer entender como isso afeta o seu caso?"
+    subtitle="Agende uma consulta e traga suas dúvidas específicas."
+  />
+</BaseLayout>
