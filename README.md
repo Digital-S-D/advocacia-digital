@@ -1,5 +1,7 @@
 # Advocacia Digital — demonstração da Digital S&D
 
+[English](README.en.md) · [Caso público](https://digitalsd.com.br/portfolio/advocacia-digital/) · [Contato com a SD](mailto:digitalsd.contato@gmail.com)
+
 Conceito de site institucional com 26 páginas estáticas: áreas de atuação, perfis fictícios, blog, notícias, perguntas frequentes e simulação de contato. Escritório, pessoas e textos são fictícios. Não oferece atendimento ou orientação jurídica, não comprova credenciais e não é um projeto de cliente.
 
 ## Executar e verificar
@@ -40,3 +42,11 @@ Uma implantação para escritório real exige conteúdo e credenciais autorizado
 - Ausência de API de coleta e confirmação sem falsa promessa de recebimento.
 
 A verificação visual complementar cobre larguras mobile/desktop, menu com Escape, FAQ por teclado e formulário em execução. `npm audit` é uma fotografia dos avisos conhecidos, não uma garantia permanente de segurança.
+
+## Capturas e participação
+
+![Demonstração no computador](docs/capturas/visao-geral.png)
+
+[Áreas de atuação](docs/capturas/areas.png) · [Contato simulado](docs/capturas/contato.png) · [Versão mobile](docs/capturas/mobile.png). Capturas da implementação atual em execução.
+
+Projeto da equipe Digital S&D, fundada por Álvaro Marinho e Arthur Leite. Não se atribui toda a implementação a uma única pessoa. O caso público explica o problema proposto, decisões e limites; o contato comercial da SD é separado da simulação jurídica. Nesta revisão, `npm run check` passou com 0 erros/avisos no Astro, 26 páginas exportadas e seis testes. O fluxo de contato foi conferido com dados fictícios em execução.
