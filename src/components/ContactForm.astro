@@ -4,7 +4,11 @@ import { getAreas } from "../lib/content";
 const areas = await getAreas();
 ---
 
-<form id="form-contato" novalidate class="space-y-5" action="/api/contato" method="POST">
+<p id="demo-instrucao" class="mb-6 font-body text-sm text-ink-soft"><strong>Simulação sem envio.</strong> Use apenas dados fictícios. Os campos são validados neste navegador e não são enviados ou salvos pela aplicação.</p>
+<noscript><p class="mb-5 text-rubrica">Ative o JavaScript para experimentar a simulação. Nenhum dado será enviado.</p></noscript>
+<form id="form-contato" novalidate method="dialog" aria-describedby="demo-instrucao">
+<fieldset id="demo-campos" disabled class="space-y-5">
+<legend class="sr-only">Experimentar formulário demonstrativo</legend>
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
       <label for="nome" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">Nome completo</label>
@@ -14,7 +18,8 @@ const areas = await getAreas();
         type="text"
         required
         minlength="2"
-        autocomplete="name"
+        maxlength="120"
+        autocomplete="off"
         class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
       />
     </div>
@@ -24,8 +29,9 @@ const areas = await getAreas();
         id="telefone"
         name="telefone"
         type="tel"
+        maxlength="30"
         required
-        autocomplete="tel"
+        autocomplete="off"
         class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
       />
     </div>
@@ -37,8 +43,9 @@ const areas = await getAreas();
       id="email"
       name="email"
       type="email"
+      maxlength="254"
       required
-      autocomplete="email"
+      autocomplete="off"
       class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
     />
   </div>
@@ -61,25 +68,20 @@ const areas = await getAreas();
 
   <div>
     <label for="mensagem" class="block font-mono text-xs uppercase tracking-wide text-ink-faint">
-      Descreva brevemente a sua situação
+      Escreva uma situação fictícia
     </label>
     <textarea
       id="mensagem"
       name="mensagem"
       required
       minlength="10"
+      maxlength="2000"
       rows="4"
       class="mt-2 w-full rounded-sm border border-line bg-paper px-4 py-3 font-body text-ink placeholder:text-ink-faint focus:border-navy"
     ></textarea>
   </div>
 
-  <!-- honeypot: invisível para pessoas, se vier preenchido é bot -->
-  <div class="hidden" aria-hidden="true">
-    <label for="website">Não preencha este campo</label>
-    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-  </div>
-
-  <label class="flex items-start gap-3 font-body text-sm text-ink-soft">
+<label class="flex items-start gap-3 font-body text-sm text-ink-soft">
     <input
       id="consentimento"
       name="consentimento"
@@ -88,10 +90,10 @@ const areas = await getAreas();
       class="mt-1 h-4 w-4 shrink-0 rounded-sm border-line accent-navy"
     />
     <span>
-      Autorizo o tratamento dos dados acima para retorno do escritório, conforme a
+      Entendo que este formulário é uma simulação local e usarei apenas dados fictícios. Leia a
       <a href="/politica-de-privacidade" class="text-navy underline decoration-line underline-offset-2 hover:text-rubrica">
         Política de Privacidade
-      </a>. Suas informações são tratadas com sigilo profissional.
+      </a> para conhecer o funcionamento da demonstração.
     </span>
   </label>
 
@@ -101,57 +103,39 @@ const areas = await getAreas();
     type="submit"
     class="w-full rounded-sm bg-rubrica px-7 py-3.5 font-body font-500 text-paper transition-colors hover:bg-rubrica-deep sm:w-auto"
   >
-    Enviar solicitação
+    Simular solicitação
   </button>
+</fieldset>
 </form>
 
 <script>
-  const form = document.getElementById("form-contato") as HTMLFormElement | null;
+  import { contactSchema } from "../lib/contact";
+  const form = document.querySelector<HTMLFormElement>("#form-contato");
   const erroEl = document.getElementById("form-erro");
+  const fields = document.querySelector<HTMLFieldSetElement>("#demo-campos");
+  if (fields) fields.disabled = false;
 
-  form?.addEventListener("submit", async (event) => {
+  form?.addEventListener("submit", (event) => {
     event.preventDefault();
-    if (erroEl) {
-      erroEl.classList.add("hidden");
-      erroEl.textContent = "";
+    form.querySelectorAll("[aria-invalid]").forEach((field) => {
+      field.removeAttribute("aria-invalid");
+      field.removeAttribute("aria-describedby");
+    });
+    if (erroEl) { erroEl.textContent = ""; erroEl.classList.add("hidden"); }
+    const result = contactSchema.safeParse(Object.fromEntries(new FormData(form)));
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      if (erroEl) { erroEl.textContent = issue.message; erroEl.classList.remove("hidden"); }
+      const field = form.elements.namedItem(String(issue.path[0]));
+      if (field instanceof HTMLElement) {
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute("aria-describedby", "form-erro");
+        field.focus();
+      }
+      return;
     }
-
-    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Enviando...";
-    }
-
-    try {
-      const response = await fetch("/api/contato", {
-        method: "POST",
-        body: new FormData(form),
-      });
-      const data = await response.json();
-
-      if (response.ok && data.ok) {
-        window.location.href = "/obrigado";
-        return;
-      }
-
-      const primeiraMensagem = data.errors
-        ? (Object.values(data.errors)[0] as string[] | undefined)?.[0]
-        : null;
-      if (erroEl) {
-        erroEl.textContent =
-          primeiraMensagem ?? "Não foi possível enviar. Verifique os campos e tente novamente.";
-        erroEl.classList.remove("hidden");
-      }
-    } catch {
-      if (erroEl) {
-        erroEl.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
-        erroEl.classList.remove("hidden");
-      }
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Enviar solicitação";
-      }
-    }
+    // Nenhum fetch, armazenamento, log ou dado na URL: apenas navegação local.
+    form.reset();
+    window.location.assign("/obrigado");
   });
 </script>

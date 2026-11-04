@@ -6,8 +6,8 @@ const artigosRecentes = (await getConteudo("blog")).slice(0, 3);
 ---
 
 <BaseLayout
-  title="Solicitação recebida"
-  description="Sua solicitação de consulta foi recebida."
+  title="Simulação concluída"
+  description="A validação demonstrativa foi concluída, sem envio de solicitação."
   noindex
 >
   <section class="border-b border-line bg-paper">
@@ -16,14 +16,13 @@ const artigosRecentes = (await getConteudo("blog")).slice(0, 3);
         §
       </span>
       <h1 class="mt-6 font-display text-3xl font-600 text-ink sm:text-4xl">
-        Recebemos sua solicitação.
+        Simulação concluída.
       </h1>
       <p class="mt-4 font-body text-lg leading-relaxed text-ink-soft">
-        Um advogado da área relacionada ao seu caso vai analisar as informações enviadas e retornar
-        em até <strong class="text-ink">1 dia útil</strong> para agendar a consulta inicial.
+        Este é o fim do percurso demonstrativo. Nenhum dado foi enviado ou salvo pela aplicação e nenhuma consulta foi agendada.
       </p>
       <p class="mt-3 font-body text-sm text-ink-faint">
-        Se preferir adiantar o contato, fale conosco pelo WhatsApp indicado na página de Contato.
+        Não haverá retorno de um advogado. Você pode continuar explorando o projeto.
       </p>
       <a
         href="/"
@@ -40,7 +39,7 @@ const artigosRecentes = (await getConteudo("blog")).slice(0, 3);
         &nbsp;Enquanto isso
       </p>
       <h2 class="mt-3 text-center font-display text-xl font-600 text-ink">
-        Alguns artigos que podem ajudar
+        Explore as amostras editoriais
       </h2>
       <div class="mt-10 grid gap-8 sm:grid-cols-3">
         {artigosRecentes.map((artigo) => (

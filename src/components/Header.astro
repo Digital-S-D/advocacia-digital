@@ -4,7 +4,7 @@ import { NOME_ESCRITORIO } from "../lib/content";
 const navItems = [
   { href: "/areas-de-atuacao", label: "Áreas de Atuação" },
   { href: "/equipe", label: "Equipe" },
-  { href: "/resultados-e-reconhecimento", label: "Reconhecimento" },
+  { href: "/resultados-e-reconhecimento", label: "O projeto" },
   { href: "/blog", label: "Blog" },
   { href: "/noticias", label: "Notícias" },
 ];
@@ -31,7 +31,7 @@ const navItems = [
 
     <div class="hidden items-center gap-4 lg:flex">
       <a href="/contato" class="whitespace-nowrap rounded-sm bg-navy px-5 py-2.5 font-body text-sm font-500 text-paper transition-colors hover:bg-navy-deep">
-        Agende uma Consulta
+        Simular contato
       </a>
     </div>
 
@@ -63,7 +63,7 @@ const navItems = [
       ))}
       <li class="mt-2">
         <a href="/contato" class="block rounded-sm bg-navy px-2 py-2.5 text-center font-500 text-paper">
-          Agende uma Consulta
+          Simular contato
         </a>
       </li>
     </ul>
@@ -77,11 +77,25 @@ const navItems = [
   const iconOpen = document.getElementById("icon-open");
   const iconClose = document.getElementById("icon-close");
 
-  toggle?.addEventListener("click", () => {
-    const isOpen = menu?.classList.toggle("hidden") === false;
-    toggle.setAttribute("aria-expanded", String(isOpen));
+  function setOpen(isOpen: boolean) {
+    menu?.classList.toggle("hidden", !isOpen);
+    toggle?.setAttribute("aria-expanded", String(isOpen));
     if (label) label.textContent = isOpen ? "Fechar" : "Menu";
     iconOpen?.classList.toggle("hidden", isOpen);
     iconClose?.classList.toggle("hidden", !isOpen);
+  }
+  toggle?.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+  const desktop = window.matchMedia("(min-width: 1024px)");
+  desktop.addEventListener("change", () => {
+    const focusWasInside = menu?.contains(document.activeElement);
+    setOpen(false);
+    if (focusWasInside && desktop.matches) document.querySelector<HTMLAnchorElement>('nav[aria-label="Navegação principal"] a')?.focus();
   });
 </script>

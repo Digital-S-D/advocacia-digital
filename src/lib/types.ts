@@ -1,10 +1,4 @@
-/**
- * Tipos que espelham os Custom Types sugeridos para o repositório Prismic
- * (ver briefing, Seção 15 — Tecnologias). Enquanto o repositório real não
- * existe, `src/lib/content.ts` usa estes tipos com dados de exemplo;
- * quando o Prismic estiver conectado, as mesmas assinaturas de função
- * devem retornar dados vindos de `client.getAllByType(...)`.
- */
+/** Tipos do conteúdo local demonstrativo. Uma integração com CMS não está implementada. */
 
 export type AreaSlug =
   | "trabalhista"
@@ -38,12 +32,6 @@ export interface Advogado {
 export interface FaqItem {
   pergunta: string;
   resposta: string;
-}
-
-export interface Reconhecimento {
-  titulo: string;
-  organizacao: string;
-  ano: number;
 }
 
 export type TipoConteudo = "blog" | "noticia";

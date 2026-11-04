@@ -3,25 +3,12 @@ import type {
   AreaSlug,
   Advogado,
   ConteudoEditorial,
-  Reconhecimento,
 } from "./types";
 
-/**
- * TODO (Prismic): substituir cada função abaixo por uma chamada equivalente
- * usando `client` de `src/lib/prismic.ts`, por exemplo:
- *
- *   export async function getAreas(): Promise<AreaAtuacao[]> {
- *     if (!client) return AREAS; // fallback local enquanto não há repositório
- *     const docs = await client.getAllByType("area_atuacao");
- *     return docs.map(mapAreaDocument);
- *   }
- *
- * As páginas em `src/pages` já importam destas funções, então a troca
- * fica isolada neste arquivo — nenhum componente precisa mudar.
- */
+/** Conteúdo local fictício para demonstrar a estrutura de um site institucional. */
 
 export const NOME_ESCRITORIO = "Advocacia Digital";
-export const OAB_RESPONSAVEL = "OAB/MG 000.000";
+
 
 const AREAS: AreaAtuacao[] = [
   {
@@ -170,17 +157,17 @@ const ADVOGADOS: Advogado[] = [
     slug: "mariana-almeida",
     nome: "Mariana Almeida",
     cargo: "Sócia-fundadora",
-    oab: "OAB/MG 123.456",
-    formacao: ["Direito — UFMG", "Especialização em Direito Societário — FGV Direito"],
+    oab: "Perfil fictício · sem inscrição profissional",
+    formacao: ["Espaço demonstrativo para formação verificada em uma implantação real"],
     areas: ["societario-e-ma", "civel-e-contratos"],
-    bio: "Atua há mais de 15 anos em direito societário e contratual, com foco em operações de fusão e aquisição para empresas de médio porte.",
+    bio: "Personagem fictícia para exemplificar um perfil de atuação em direito societário e contratual.",
   },
   {
     slug: "rafael-teixeira",
     nome: "Rafael Teixeira",
     cargo: "Sócio",
-    oab: "OAB/MG 234.567",
-    formacao: ["Direito — PUC Minas", "Especialização em Direito e Processo do Trabalho — IEC PUC Minas"],
+    oab: "Perfil fictício · sem inscrição profissional",
+    formacao: ["Espaço demonstrativo para formação verificada em uma implantação real"],
     areas: ["trabalhista"],
     bio: "Concentra sua atuação em direito do trabalho, atendendo tanto empresas em rotinas de compliance quanto pessoas físicas em reclamações trabalhistas.",
   },
@@ -188,8 +175,8 @@ const ADVOGADOS: Advogado[] = [
     slug: "luiza-fontoura",
     nome: "Luiza Fontoura",
     cargo: "Sócia",
-    oab: "OAB/MG 345.678",
-    formacao: ["Direito — UFMG", "Mestrado em Direito Tributário — USP"],
+    oab: "Perfil fictício · sem inscrição profissional",
+    formacao: ["Espaço demonstrativo para formação verificada em uma implantação real"],
     areas: ["tributario"],
     bio: "Dedica-se a planejamento tributário e defesa em autuações fiscais, com atenção especial ao acompanhamento da transição da reforma tributária.",
   },
@@ -197,17 +184,11 @@ const ADVOGADOS: Advogado[] = [
     slug: "pedro-navarro",
     nome: "Pedro Navarro",
     cargo: "Advogado associado",
-    oab: "OAB/MG 456.789",
-    formacao: ["Direito — Universidade FUMEC", "Especialização em Proteção de Dados — Insper"],
+    oab: "Perfil fictício · sem inscrição profissional",
+    formacao: ["Espaço demonstrativo para formação verificada em uma implantação real"],
     areas: ["protecao-de-dados-lgpd", "familia-e-sucessoes"],
     bio: "Atua em proteção de dados e direito digital, além de planejamento sucessório e questões de família.",
   },
-];
-
-const RECONHECIMENTOS: Reconhecimento[] = [
-  { titulo: "Escritório recomendado — Direito Trabalhista", organizacao: "Análise Advocacia 500", ano: 2025 },
-  { titulo: "Ranking regional — Direito Tributário", organizacao: "Leaders League", ano: 2025 },
-  { titulo: "Escritório citado — Direito Societário", organizacao: "Chambers and Partners Brazil", ano: 2024 },
 ];
 
 const CONTEUDO: ConteudoEditorial[] = [
@@ -248,7 +229,7 @@ const CONTEUDO: ConteudoEditorial[] = [
   {
     tipo: "blog",
     slug: "lgpd-checklist-pequenas-empresas",
-    titulo: "LGPD para pequenas empresas: o checklist mínimo de conformidade",
+    titulo: "LGPD para pequenas empresas: exemplo de pauta editorial",
     resumo:
       "A LGPD não isenta empresas pelo porte. Veja por onde começar a adequação sem precisar de uma estrutura grande de compliance.",
     corpo: [
@@ -354,10 +335,6 @@ export async function getAdvogados(): Promise<Advogado[]> {
 
 export async function getAdvogado(slug: string): Promise<Advogado | undefined> {
   return ADVOGADOS.find((a) => a.slug === slug);
-}
-
-export async function getReconhecimentos(): Promise<Reconhecimento[]> {
-  return RECONHECIMENTOS;
 }
 
 export async function getConteudo(tipo: ConteudoEditorial["tipo"]): Promise<ConteudoEditorial[]> {
